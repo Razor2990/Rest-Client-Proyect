@@ -38,8 +38,8 @@ jobs:
 
     - name: Deploy to OpenShift
       run: |
-        oc apply -f path/to/your/deployment.yaml # Cambia esto a la ruta de tu archivo de despliegue
+        oc apply -f .github/workflows/deploy.yaml # Cambia esto a la ruta de tu archivo de despliegue
 
     - name: Verify Deployment
       run: |
-        oc rollout status deployment/your-deployment-name # Cambia esto al nombre de tu despliegue
+        oc rollout status deployment/client-diary # Cambia esto al nombre de tu despliegue
