@@ -33,7 +33,7 @@ jobs:
 
     - name: Log in to OpenShift
       run: |
-        echo ${{ secrets.OPENSHIFT_TOKEN }} | oc login ${{ secrets.OPENSHIFT_API_URL }} --token
+        oc login ${{ secrets.OPENSHIFT_API_URL }} --token=${{ secrets.OPENSHIFT_TOKEN }}
         oc project my-project # Cambia esto al nombre de tu proyecto en OpenShift
 
     - name: Deploy to OpenShift
