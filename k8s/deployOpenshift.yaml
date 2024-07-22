@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: client-diary
-        image: <your-openshift-registry>/client-diary:latest # Cambia esto si estás usando un registro específico
+        image: $(oc registry)/josuebat-dev/client-diary:latest
         ports:
         - containerPort: 8080
 ---
