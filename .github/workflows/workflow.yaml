@@ -45,7 +45,7 @@ jobs:
     - name: Log in to OpenShift Docker registry
       run: |
         oc whoami -t | docker login -u "oauth2accesstoken" --password-stdin $(oc registry)
-      
+
     - name: Push Docker image to OpenShift
       run: |
         docker tag client-diary:latest $(oc registry)/josuebat-dev/client-diary:latest
