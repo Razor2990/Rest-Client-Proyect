@@ -37,7 +37,7 @@ jobs:
 
     - name: Deploy to OpenShift
       run: |
-        oc apply -f k8s/deploy.yaml
+        oc apply -f k8s/deployOpenshift.yaml
 
     - name: Verify Deployment
       run: |
