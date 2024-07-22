@@ -15,6 +15,37 @@ spec:
     spec:
       containers:
       - name: client-diary
-        image: registry.access.redhat.com/ubi8/openjdk-17:1.20-2.1721231681
+        image: client-diary:latest # La imagen local construida en el paso anterior
         ports:
         - containerPort: 8080
+        volumeMounts:
+        - name: jar-volume
+          mountPath: /deployments
+      volumes:
+      - name: jar-volume
+        configMap:
+          name: jar-configmap
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-diary
+  namespace: josuebat-dev
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: client-diary
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: client-diary
+  namespace: josuebat-dev
+spec:
+  to:
+    kind: Service
+    name: client-diary
+  port:
+    targetPort: 80

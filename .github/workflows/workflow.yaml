@@ -33,6 +33,10 @@ jobs:
     - name: List files in target directory
       run: ls -l target/
 
+    - name: Build Docker image
+      run: |
+        docker build -t client-diary:latest .
+
     - name: Log in to OpenShift
       run: |
         oc login ${{ secrets.OPENSHIFT_API_URL }} --token=${{ secrets.OPENSHIFT_TOKEN }}
