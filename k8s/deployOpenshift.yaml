@@ -18,13 +18,6 @@ spec:
         image: client-diary:latest # La imagen local construida en el paso anterior
         ports:
         - containerPort: 8080
-        volumeMounts:
-        - name: jar-volume
-          mountPath: /deployments
-      volumes:
-      - name: jar-volume
-        configMap:
-          name: jar-configmap
 ---
 apiVersion: v1
 kind: Service
