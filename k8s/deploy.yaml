@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-diary
+  namespace: josuebat-dev
+  labels:
+    app: client-diary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client-diary
+  template:
+    metadata:
+      labels:
+        app: client-diary
+    spec:
+      containers:
+      - name: client-diary
+        image: registry.access.redhat.com/ubi8/openjdk-17:1.20-2.1721231681
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        volumeMounts:
+        - name: app-jar
+          mountPath: /deployments/app.jar
+          subPath: app.jar
+        env:
+        - name: JAVA_APP_JAR
+          value: "/deployments/app.jar"
+      volumes:
+      - name: app-jar
+        configMap:
+          name: client-diary-jar
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%

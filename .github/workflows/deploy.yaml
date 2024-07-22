@@ -8,7 +8,6 @@ on:
 
 jobs:
   deploy:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -33,13 +32,13 @@ jobs:
 
     - name: Log in to OpenShift
       run: |
-        oc login ${{ secrets.OPENSHIFT_API_URL }} --token=${{ secrets.OPENSHIFT_TOKEN }}
-        oc project josuebat-dev # Cambia esto al nombre de tu proyecto en OpenShift
+        echo ${{ secrets.OPENSHIFT_TOKEN }} | oc login ${{ secrets.OPENSHIFT_API_URL }} --token
+        oc project josuebat-dev
 
     - name: Deploy to OpenShift
       run: |
-        oc apply -f .github/workflows/deploy.yaml # Cambia esto a la ruta de tu archivo de despliegue
+        oc apply -f k8s/deploy.yaml
 
     - name: Verify Deployment
       run: |
-        oc rollout status deployment/client-diary # Cambia esto al nombre de tu despliegue
+        oc rollout status deployment/client-diary
