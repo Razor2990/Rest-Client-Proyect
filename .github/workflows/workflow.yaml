@@ -42,6 +42,11 @@ jobs:
         oc login ${{ secrets.OPENSHIFT_API_URL }} --token=${{ secrets.OPENSHIFT_TOKEN }}
         oc project josuebat-dev
 
+    - name: Push Docker image to OpenShift
+      run: |
+        docker tag client-diary:latest <your-openshift-registry>/client-diary:latest
+        docker push <your-openshift-registry>/client-diary:latest
+
     - name: Deploy to OpenShift
       run: |
         oc apply -f k8s/deployOpenshift.yaml
